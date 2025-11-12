@@ -1,0 +1,9 @@
+tensorflow>=2.9
+librosa
+pytube
+pydub
+numpy
+matplotlib
+pandas
+scikit-learn
+tk
