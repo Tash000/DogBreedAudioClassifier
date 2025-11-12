@@ -9,6 +9,8 @@
 This repository presents an end-to-end **audio classification system** for identifying dog breeds from bark sounds.
 The framework integrates a **Graphical User Interface (GUI)** that allows non-technical users to manage datasets, train models, and perform predictions with ease.
 
+![Dog Breed Classifier GUI](docs/gui.png)
+
 Built using **MFCC feature extraction** and a **1D Convolutional Neural Network (1D-CNN)**, the system not only classifies among known dog breeds but also detects **unknown or non-dog sounds** through confidence thresholding.
 The design is modular, allowing users to dynamically add new breeds, retrain models, and visualize performance metrics.
 
@@ -27,7 +29,7 @@ The design is modular, allowing users to dynamically add new breeds, retrain mod
 ## 🧠 System Architecture
 
 ```
-<img width="1166" height="502" alt="gui-workflow" src="https://github.com/user-attachments/assets/84175395-1119-4837-80d7-94e78bcac77d" />
+![System Workflow](docs/gui-workflow.png)
 
 ```
 
@@ -182,4 +184,5 @@ Released under the **MIT License**.
 Free to use and modify for academic and educational purposes.
 
 ---
+
 
