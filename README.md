@@ -26,27 +26,9 @@ The design is modular, allowing users to dynamically add new breeds, retrain mod
 
 ## 🧠 System Architecture
 
-```mermaid
-flowchart LR
-  subgraph "User Input & Preprocessing"
-    direction TB
-    A[Input<br>(YouTube or Local File)]
-    B[GUI]
-    C[Data Curation]
-    D[Data Augmentation]
-    E[Feature Extraction (MFCC)]
-  end
+```
+<img width="1166" height="502" alt="gui-workflow" src="https://github.com/user-attachments/assets/84175395-1119-4837-80d7-94e78bcac77d" />
 
-  subgraph "Training & Inference"
-    direction TB
-    F[1D-CNN Model Training]
-    G[(Saved Model)]
-    H[Inference Engine]
-    I[Classification Output<br>(Breed / Unknown)]
-  end
-
-  A --> B --> C --> D --> E --> F --> G --> H --> I
-  B --> H
 ```
 
 ---
@@ -200,3 +182,4 @@ Released under the **MIT License**.
 Free to use and modify for academic and educational purposes.
 
 ---
+
