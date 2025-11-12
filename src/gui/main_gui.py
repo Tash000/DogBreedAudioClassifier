@@ -11,9 +11,9 @@ import joblib
 import librosa
 from tensorflow.keras.models import load_model
 
-from utils import download_audio, split_audio, extract_features
-from train_model import train_model
-from train_model_cnn import train_cnn
+from src.utils.utils import download_audio, split_audio, extract_features
+from src.models.train_model import train_model
+from src.models.train_model_cnn import train_cnn
 
 # === Config ===
 AUDIO_DIR = "downloads"
