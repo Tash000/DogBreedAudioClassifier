@@ -10,7 +10,7 @@ This repository presents an end-to-end **audio classification system** for ident
 The framework integrates a **Graphical User Interface (GUI)** that allows non-technical users to manage datasets, train models, and perform predictions with ease.
 
 <p align="center">
-  <img src="docs/gui.png" alt="Dog Breed Classifier GUI" width="600">
+  <img src="docs/gui-demo.png" alt="Dog Breed Classifier GUI" width="600">
 </p>
 
 Built using **MFCC feature extraction** and a **1D Convolutional Neural Network (1D-CNN)**, the system not only classifies among known dog breeds but also detects **unknown or non-dog sounds** through confidence thresholding.
@@ -185,6 +185,7 @@ Released under the **MIT License**.
 Free to use and modify for academic and educational purposes.
 
 ---
+
 
 
 
