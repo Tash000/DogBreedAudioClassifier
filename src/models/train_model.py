@@ -10,6 +10,12 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import save_model as keras_save_model
 import joblib
 
+# --- Project path configuration ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # src/models
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+MODEL_DIR = os.path.join(PROJECT_ROOT, "models")
+os.makedirs(MODEL_DIR, exist_ok=True)
+
 def extract_features(file_path, duration=3, offset=0.5):
     try:
         y, sr = librosa.load(file_path, duration=duration, offset=offset)
@@ -62,7 +68,7 @@ def train_model(
     Y_encoded = to_categorical(le.fit_transform(Y))
 
     if save_encoder_path is None:
-        save_encoder_path = os.path.join("models", f"{model_name}_label_encoder.pkl")
+         save_encoder_path = os.path.join(MODEL_DIR, f"{model_name}_label_encoder.pkl")
     joblib.dump(le, save_encoder_path)
 
     X_train, X_test, y_train, y_test = train_test_split(X, Y_encoded, test_size=0.2, random_state=42)
@@ -71,13 +77,14 @@ def train_model(
     history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test), verbose=1)
 
     if save_model_path is None:
-        save_model_path = os.path.join("models", f"{model_name}.h5")
+        save_model_path = os.path.join(MODEL_DIR, f"{model_name}.h5")
 
     os.makedirs(os.path.dirname(save_model_path), exist_ok=True)
     if save_format == "keras":
         keras_save_model(model, save_model_path, save_format="keras")
     else:
         model.save(save_model_path)
+
 
     if plot_stats:
         plt.figure(figsize=(10, 4))

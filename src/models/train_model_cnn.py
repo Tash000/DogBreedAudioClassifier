@@ -1,13 +1,20 @@
-import os
-import numpy as np
-import librosa
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout, Flatten, Dense
-from tensorflow.keras.utils import to_categorical
-import joblib
+1 import os
+2 import numpy as np
+3 import librosa
+4 import matplotlib.pyplot as plt
+5 from sklearn.preprocessing import LabelEncoder
+6 from sklearn.model_selection import train_test_split
+7 from tensorflow.keras.models import Sequential
+8 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Dropout, Flatten, Dense
+9 from tensorflow.keras.utils import to_categorical
+10 import joblib
+11 
+12 # --- Project path configuration ---
+13 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # src/models
+14 PROJECT_ROOT = os.path.dirname(BASE_DIR)
+15 MODEL_DIR = os.path.join(PROJECT_ROOT, "models")
+16 os.makedirs(MODEL_DIR, exist_ok=True)
+
 
 # 1. Extract full MFCC matrix (no averaging)
 def extract_features_cnn(file_path, duration=3, offset=0.5, n_mfcc=40):
@@ -73,7 +80,7 @@ def train_cnn(data_dir, model_name="cnn_bark_model", encoder_path=None, plot_sta
     Y_encoded = to_categorical(le.fit_transform(Y))
 
     if encoder_path is None:
-        encoder_path = os.path.join("models", f"{model_name}_label_encoder.pkl")
+        encoder_path = os.path.join(MODEL_DIR, f"{model_name}_label_encoder.pkl")
     joblib.dump(le, encoder_path)
 
     X_train, X_test, y_train, y_test = train_test_split(X, Y_encoded, test_size=0.2, random_state=42)
@@ -87,7 +94,7 @@ def train_cnn(data_dir, model_name="cnn_bark_model", encoder_path=None, plot_sta
     if not model_name.endswith(('.h5', '.keras')):
         model_name += ".keras"  # default to keras if extension not given
 
-    save_path = os.path.join("models", model_name)
+    save_path = os.path.join(MODEL_DIR, model_name)
     model.save(save_path)
 
     print(f"✅ Model saved: {save_path}")

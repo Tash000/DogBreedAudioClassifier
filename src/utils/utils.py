@@ -7,6 +7,14 @@ import uuid
 from datetime import datetime
 from tensorflow.keras.models import save_model, load_model
 
+# --- Project path configuration ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+MODEL_DIR = os.path.join(PROJECT_ROOT, "models")
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(MODEL_DIR, exist_ok=True)
+
 # ========== 1. Download Audio from YouTube ========== #
 def download_audio(youtube_url, output_dir, filename_prefix=None):
     os.makedirs(output_dir, exist_ok=True)
@@ -30,8 +38,10 @@ def download_audio(youtube_url, output_dir, filename_prefix=None):
         return downloaded_file
 
 # ========== 2. Split Audio into 3-sec Clips ========== #
-def split_audio(audio_path, breed_label, base_dir="dataset/clips", clip_duration=3, for_test=False):
-    target_dir = "test_clips" if for_test else base_dir
+def split_audio(audio_path, breed_label, base_dir=None, clip_duration=3, for_test=False):
+    if base_dir is None:
+        base_dir = os.path.join(DATA_DIR, "dataset", "clips")
+    target_dir = os.path.join(DATA_DIR, "test_clips") if for_test else base_dir
     breed_dir = os.path.join(target_dir, breed_label)
     os.makedirs(breed_dir, exist_ok=True)
 
@@ -114,10 +124,14 @@ def save_model_format(model, save_path, use_keras_format=False):
         model.save(save_path)
 
 # ========== 8. Load available models ========== #
-def list_models(models_dir="models"):
+def list_models(models_dir=None):
+    if models_dir is None:
+        models_dir = MODEL_DIR
     return [f for f in os.listdir(models_dir) if f.endswith(".h5") or f.endswith(".keras")]
 
 # ========== 9. Load model by name ========== #
-def load_named_model(model_name, models_dir="models"):
+def load_named_model(model_name, models_dir=None):
+    if models_dir is None:
+        models_dir = MODEL_DIR
     model_path = os.path.join(models_dir, model_name)
     return load_model(model_path)

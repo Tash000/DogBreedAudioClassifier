@@ -11,20 +11,27 @@ import joblib
 import librosa
 from tensorflow.keras.models import load_model
 
+
 from src.utils.utils import download_audio, split_audio, extract_features
 from src.models.train_model import train_model
 from src.models.train_model_cnn import train_cnn
 
-# === Config ===
-AUDIO_DIR = "downloads"
-SPLIT_DIR = "clips"
-PREDICT_DIR = "predict"
-MODEL_DIR = "models"
+# --- Project path configuration (portable) ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # src/
+PROJECT_ROOT = os.path.dirname(BASE_DIR)  # project root
+
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+AUDIO_DIR = os.path.join(DATA_DIR, "downloads")
+SPLIT_DIR = os.path.join(DATA_DIR, "dataset", "clips")
+PREDICT_DIR = os.path.join(DATA_DIR, "predict")
+MODEL_DIR = os.path.join(PROJECT_ROOT, "models")
 ENCODER_SUFFIX = "_label_encoder.pkl"
 CONF_THRESHOLD = 0.4  # 40% threshold
-
+ 
+# Ensure directories exist
 for d in [AUDIO_DIR, SPLIT_DIR, PREDICT_DIR, MODEL_DIR]:
     os.makedirs(d, exist_ok=True)
+
 
 def get_supported_models():
     return [f for f in os.listdir(MODEL_DIR) if f.endswith(('.h5', '.keras'))]
