@@ -104,10 +104,11 @@ DogBreedAudioClassifier/
 │   ├── test_clips/
 │   └── predict/
 │
-├── models/
 ├── results/
 ├── docs/
-│   └── Dog_Breed_Audio_Classification_Report.docx
+│   └── gui-demo.png
+│   └── gui-demo2.png
+│   └── gui-workflow.png
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -185,6 +186,7 @@ Released under the **MIT License**.
 Free to use and modify for academic and educational purposes.
 
 ---
+
 
 
 
